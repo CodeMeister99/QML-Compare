@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: 248 249 253; /* soft paper */
+  --ink: 18 18 23;
+  --brand: 99 102 241; /* indigo-500 softened */
+}
+
+html, body, #root { height: 100%; }
+body { color: rgb(var(--ink)); background: rgb(var(--bg)); }
+
+@layer components {
+  .glass {
+    @apply bg-white/70 backdrop-blur-xs shadow-glass border border-white/40;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center rounded-lg px-4 py-2 font-medium transition;
+  }
+
+  /* Softer, professional vibe for primary */
+  .btn-primary {
+    @apply btn text-white;
+    background: linear-gradient(to right, rgb(129 140 248), rgb(99 102 241)); /* indigo-400 → indigo-500 */
+  }
+  .btn-primary:hover { opacity: 0.9; }
+  .btn-primary:focus { @apply ring-2 ring-indigo-300; }
+
+  .btn-ghost {
+    @apply btn bg-white/70 hover:bg-white/90 border border-white/60 text-slate-700;
+  }
+
+  .card {
+    @apply glass rounded-2xl p-6;
+  }
+
+  .label {
+    @apply text-sm font-medium text-slate-600; /* softer labels */
+  }
+
+  .input {
+    @apply w-full rounded-lg border border-gray-300 bg-white px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-300;
+  }
+
+  .select { @apply input; }
+
+  .mono { font-feature-settings: "ss02" on, "ss01" on; }
+
+  /* Muted subtitle accents */
+  .subtitle {
+    @apply text-xs uppercase tracking-wide font-semibold text-indigo-500/80;
+  }
+
+  .section-title {
+    @apply text-lg font-semibold text-slate-900 text-center;
+  }
+
+  .bg-ink { background: #0b0d14; }
+
+@keyframes k-draw {
+  0% { stroke-dasharray: 1000; stroke-dashoffset: 1000; opacity: 0 }
+  40% { opacity: .85 }
+  100% { stroke-dasharray: 1000; stroke-dashoffset: 0; opacity: .65 }
+}
+.animate-draw { animation: k-draw 1.2s ease forwards; }
+
+@keyframes k-rise {
+  0% { transform: translateY(10px); filter: blur(2px); opacity: 0 }
+  100% { transform: translateY(0); filter: blur(0); opacity: 1 }
+}
+.animate-rise { animation: k-rise .8s ease-out .6s both; }
+
+@keyframes k-fade-in { from { opacity: 0 } to { opacity: 1 } }
+.animate-fade-in-slow { animation: k-fade-in .9s ease-out .2s both; }
+
+/* a bit more contrast so the symbol reads */
+.accent-contrast { filter: saturate(1.15) contrast(1.05); }
+
+/* soft ambient glow around the box */
+.glow-ring {
+  background: radial-gradient(60% 60% at 50% 50%, rgba(99,102,241,0.18), transparent 70%);
+  filter: blur(18px);
+}
+
+.logo-glow { filter: drop-shadow(0 8px 26px rgba(99, 102, 241, 0.5)); }
+
+/* Pan the SVG layers for a calm leftward motion */
+@keyframes qc-pan {
+  0%   { transform: translateX(0) }
+  100% { transform: translateX(-50%) }
+}
+.animate-circuit-pan {
+  animation: qc-pan 28s linear infinite;
+}
+.animate-circuit-pan-slower {
+  animation: qc-pan 42s linear infinite;
+}
+
+/* Soft shimmer on gates */
+.qc-gate {
+  transform-origin: center;
+  animation: qc-gate-pulse 4.8s ease-in-out infinite;
+}
+@keyframes qc-gate-pulse {
+  0%,100% { opacity: .75; filter: drop-shadow(0 0 0 rgba(129,140,248,0)) }
+  50%     { opacity: 1;   filter: drop-shadow(0 0 12px rgba(129,140,248,.35)) }
+}
+
+/* Occasional twinkle on tiny nodes */
+.qc-node-blink {
+  animation: qc-node-blink 3.6s ease-in-out infinite;
+}
+@keyframes qc-node-blink {
+  0%,100% { opacity: .5 }
+  50%     { opacity: .95 }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-circuit-pan,
+  .animate-circuit-pan-slower,
+  .qc-gate,
+  .qc-node-blink {
+    animation: none !important;
+  }
+}
+
+}

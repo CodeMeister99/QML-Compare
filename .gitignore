@@ -1,0 +1,20 @@
+﻿# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/.env
+frontend/.env.*
+
+# Backend
+backend/.venv/
+backend/__pycache__/
+backend/.pytest_cache/
+backend/*.pyc
+
+# General
+**/__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
